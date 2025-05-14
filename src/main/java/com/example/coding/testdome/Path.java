@@ -2,6 +2,7 @@ package com.example.coding.testdome;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 /*
 Write a function that provides change directory (cd) function for an abstract file system.
 
@@ -28,14 +29,19 @@ public class Path {
     }
 
     public Path cd(String newPath) {
-        if (newPath == "" || newPath.startsWith("/")) {
-            this.path = newPath;
+
+        if (Pattern.matches("^[a-zA-Z]*$", newPath)) {
+            return this;
+        }
+
+
+        if (newPath == "" ) {
             return this;
         }
         String[] folder = this.path.split("/");
         String[] paths = newPath.split("../");
         StringBuilder stringBuilder = new StringBuilder();
-        
+
         for (int i = 0; i < folder.length - (paths.length - 1); i++) {
             stringBuilder.append(folder[i]);
             stringBuilder.append("/");
